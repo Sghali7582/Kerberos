@@ -20,6 +20,14 @@ public class Ticket {
     private Timestamp lifetime;
     private java.security.Timestamp TS;
 
+//    TODO add methods and things for the IP direction of the user
+
+    public Ticket(String ID, String secondID, java.security.Timestamp timestamp){
+        this.ID = ID;
+        this.secondID = secondID;
+        this.TS = timestamp;
+    }
+
     public Ticket(String key, String ID, Timestamp lifetime, java.security.Timestamp TS) {
         this.key = key;
         this.ID = ID;

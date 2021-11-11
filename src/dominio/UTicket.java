@@ -5,12 +5,22 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * This class should be used to create, encrypt and decrypt tickets.
- * One <i>UTicket</i> can contain several tickets.
+ * <p>This class should be used to create, encrypt and decrypt tickets.
+ * <br>One <i>UTicket</i> can contain several tickets.</p>
+ *
+ * @author SilverVS
+ * @version 1.1
  */
+
+//TODO: add methods and things for the IP direction of the user
 
 public class UTicket {
     private ArrayList<Ticket> UTicket;
+
+    public void addTicket(String ID, String secondID, java.security.Timestamp timestamp){
+     Ticket ticket = new Ticket(ID, secondID, timestamp);
+     UTicket.add(ticket);
+    }
 
     public void addTicket(String key, String id, Timestamp lifetime,
                           java.security.Timestamp timeOfExpedition) {
@@ -18,6 +28,10 @@ public class UTicket {
         UTicket.add(ticket);
     }
 
+    /**
+     * @param secondId Ideally, the only ticket that should not have a secondId <br>
+     *                should be the one that the user sends for the first time to the AS.
+     */
     public void addTicket(String key, String id, String secondId, Timestamp lifetime,
                           java.security.Timestamp timeOfExpedition) {
         Ticket ticket = new Ticket(key, id, secondId, lifetime, timeOfExpedition);
