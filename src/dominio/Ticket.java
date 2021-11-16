@@ -18,24 +18,24 @@ public class Ticket {
     private String ID;
     private String secondID;
     private Timestamp lifetime;
-    private java.security.Timestamp TS;
+    private Timestamp TS;
 
 //    TODO add methods and things for the IP direction of the user
 
-    public Ticket(String ID, String secondID, java.security.Timestamp timestamp){
+    public Ticket(String ID, String secondID, Timestamp timestamp){
         this.ID = ID;
         this.secondID = secondID;
         this.TS = timestamp;
     }
 
-    public Ticket(String key, String ID, Timestamp lifetime, java.security.Timestamp TS) {
+    public Ticket(String key, String ID, Timestamp lifetime, Timestamp TS) {
         this.key = key;
         this.ID = ID;
         this.lifetime = lifetime;
         this.TS = TS;
     }
 
-    public Ticket(String key, String ID, String secondID, Timestamp lifetime, java.security.Timestamp TS) {
+    public Ticket(String key, String ID, String secondID, Timestamp lifetime, Timestamp TS) {
         this.key = key;
         this.ID = ID;
         this.secondID = secondID;
@@ -75,11 +75,11 @@ public class Ticket {
         this.lifetime = lifetime;
     }
 
-    public java.security.Timestamp getTS() {
+    public Timestamp getTS() {
         return TS;
     }
 
-    public void setTS(java.security.Timestamp TS) {
+    public void setTS(Timestamp TS) {
         this.TS = TS;
     }
 }

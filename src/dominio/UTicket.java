@@ -17,13 +17,13 @@ import java.util.Objects;
 public class UTicket {
     private ArrayList<Ticket> UTicket;
 
-    public void addTicket(String ID, String secondID, java.security.Timestamp timestamp){
+    public void addTicket(String ID, String secondID, Timestamp timestamp){
      Ticket ticket = new Ticket(ID, secondID, timestamp);
      UTicket.add(ticket);
     }
 
     public void addTicket(String key, String id, Timestamp lifetime,
-                          java.security.Timestamp timeOfExpedition) {
+                          Timestamp timeOfExpedition) {
         Ticket ticket = new Ticket(key, id, lifetime, timeOfExpedition);
         UTicket.add(ticket);
     }
@@ -33,7 +33,7 @@ public class UTicket {
      *                should be the one that the user sends for the first time to the AS.
      */
     public void addTicket(String key, String id, String secondId, Timestamp lifetime,
-                          java.security.Timestamp timeOfExpedition) {
+                          Timestamp timeOfExpedition) {
         Ticket ticket = new Ticket(key, id, secondId, lifetime, timeOfExpedition);
         UTicket.add(ticket);
     }
