@@ -16,36 +16,4 @@ public class Connection {
         }
         return null;
     }
-
-    public static void close(ResultSet resultSet) {
-        try {
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void close(CallableStatement callableStatement) {
-        try {
-            callableStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void close(PreparedStatement preparedStatement) {
-        try {
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void close(java.sql.Connection connection) {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
