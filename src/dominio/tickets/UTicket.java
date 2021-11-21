@@ -21,6 +21,15 @@ public class UTicket {
         tickets = new ArrayList<>();
     }
 
+    public Ticket searchTicket(String id) {
+        for (Ticket i : tickets) {
+            if (i.getIdTicket().equals(id)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
     /**
      * This ticket will be the one that the user sends to the AS at the time of asking for a service.
      * In other words, this should be the first ticket sent in the network.
@@ -68,14 +77,7 @@ public class UTicket {
         tickets.add(auth);
     }
 
-    public Ticket searchTicket(String id) {
-        for (Ticket i : tickets) {
-            if (i.getIdTicket().equals(id)) {
-                return i;
-            }
-        }
-        return null;
-    }
+
 
     public boolean[] getFilled(Ticket ticket) {
         boolean[] existingFields = new boolean[6];
