@@ -1,41 +1,33 @@
 package dominio;
 
-import java.sql.Timestamp;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class Encryption {
 
-    public String encrypt(String key, String toEncrypt) {
-        String encryptedString;
-        encryptedString = toEncrypt;
-        return encryptedString;
+    public SecretKey keyGenerator() throws NoSuchAlgorithmException {
+        return KeyGenerator.getInstance("DES").generateKey();
     }
 
-    public Timestamp encrypt(String key, Timestamp toEncrypt) {
-        Timestamp encryptedString;
-        encryptedString = toEncrypt;
-        return encryptedString;
+    public String encrypt(SecretKey secretKey, String toEncrypt) throws Exception {
+        Cipher encrypt = Cipher.getInstance("DES");
+        encrypt.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] bytesToEncrypt = toEncrypt.getBytes(StandardCharsets.UTF_8);
+        byte[] bytesEncrypted = encrypt.doFinal(bytesToEncrypt);
+        bytesEncrypted = Base64.getEncoder().encode(bytesEncrypted);
+        return new String(bytesEncrypted);
     }
 
-    public java.security.Timestamp encrypt(String key, java.security.Timestamp toEncrypt) {
-        java.security.Timestamp encryptedString;
-        encryptedString = toEncrypt;
-        return encryptedString;
-    }
-
-
-    public String decrypt(String key, String toDecrypt) {
-        String decryptedString;
-        decryptedString = toDecrypt;
-        return decryptedString;
-    }
-    public Timestamp decrypt(String key, Timestamp toDecrypt) {
-        Timestamp decryptedString;
-        decryptedString = toDecrypt;
-        return decryptedString;
-    }
-    public java.security.Timestamp decrypt(String key, java.security.Timestamp toDecrypt) {
-        java.security.Timestamp decryptedString;
-        decryptedString = toDecrypt;
-        return decryptedString;
+    public String decrypt(SecretKey secretKey, String toDecrypt) throws Exception {
+        Cipher decrypt = Cipher.getInstance("DES");
+        decrypt.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] bytesToDecrypt = toDecrypt.getBytes(StandardCharsets.UTF_8);
+        byte[] bytesDecrypted = decrypt.doFinal(bytesToDecrypt);
+        bytesDecrypted = Base64.getDecoder().decode(bytesDecrypted);
+        return new String(bytesDecrypted);
     }
 }
