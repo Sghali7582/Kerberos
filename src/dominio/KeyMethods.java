@@ -14,23 +14,27 @@ public class KeyMethods {
 //        saveKeys();
 //    }
 
-    public static void saveKeys() throws NoSuchAlgorithmException, IOException {
-        KeyPair keys = generateKeys();
-        saveKeys(keys);
+    public static void generateSecretKey(){
+
     }
 
-    public static void saveKeys(KeyPair keys) throws IOException {
-        saveKeys(keys.getPublic(), "publicKey.key");
-        saveKeys(keys.getPrivate(), "privateKey.key");
+    public static void savePairKeys() throws NoSuchAlgorithmException, IOException {
+        KeyPair keys = generatePairKeys();
+        savePairKeys(keys);
     }
 
-    public static KeyPair generateKeys() throws NoSuchAlgorithmException {
+    public static void savePairKeys(KeyPair keys) throws IOException {
+        savePairKeys(keys.getPublic(), "publicKey.key");
+        savePairKeys(keys.getPrivate(), "privateKey.key");
+    }
+
+    public static KeyPair generatePairKeys() throws NoSuchAlgorithmException {
         KeyPairGenerator generatorRSA = KeyPairGenerator.getInstance("RSA");
         return generatorRSA.generateKeyPair();
     }
 
     // TODO: Correct path to save keys
-    public static void saveKeys(Key key, String fileName) throws IOException {
+    public static void savePairKeys(Key key, String fileName) throws IOException {
         byte[] keyBytes = key.getEncoded();
         FileOutputStream stream = new FileOutputStream(fileName);
         stream.write(keyBytes);
