@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Silver_VS
  */
 public class UTicket {
-    private ArrayList<Ticket> tickets;
+    private final ArrayList<Ticket> tickets;
 
     /**
      * Method to initialize the arraylist for a new UTicket.
