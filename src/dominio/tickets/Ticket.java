@@ -10,6 +10,20 @@ public class Ticket {
     private String timeStamp;
     private String key;
 
+    public Ticket() {
+    }
+
+    public Ticket(String idTicket, String firstId, String secondId, String addressIP, String lifetime,
+                  String timeStamp, String key) {
+        this.idTicket = idTicket;
+        this.firstId = firstId;
+        this.secondId = secondId;
+        this.addressIP = addressIP;
+        this.lifetime = lifetime;
+        this.timeStamp = timeStamp;
+        this.key = key;
+    }
+
     public String getIdTicket() {
         return idTicket;
     }
@@ -64,5 +78,29 @@ public class Ticket {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public boolean isFilledFirstId() {
+        return getFirstId() != null;
+    }
+
+    public boolean isFilledSecondId() {
+        return getSecondId() != null;
+    }
+
+    public boolean isFilledAddressIP() {
+        return getAddressIP() != null;
+    }
+
+    public boolean isFilledLifetime() {
+        return getLifetime() != null;
+    }
+
+    public boolean isFilledTimeStamp() {
+        return getTimeStamp() != null;
+    }
+
+    public boolean isFilledKey() {
+        return getKey() != null;
     }
 }
