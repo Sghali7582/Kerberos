@@ -25,9 +25,8 @@ public class Encryption {
     public String decrypt(SecretKey secretKey, String toDecrypt) throws Exception {
         Cipher decrypt = Cipher.getInstance("DES");
         decrypt.init(Cipher.DECRYPT_MODE, secretKey);
-        byte[] bytesToDecrypt = toDecrypt.getBytes(StandardCharsets.UTF_8);
+        byte[] bytesToDecrypt = Base64.getDecoder().decode(toDecrypt.getBytes());
         byte[] bytesDecrypted = decrypt.doFinal(bytesToDecrypt);
-        bytesDecrypted = Base64.getDecoder().decode(bytesDecrypted);
         return new String(bytesDecrypted);
     }
 }
