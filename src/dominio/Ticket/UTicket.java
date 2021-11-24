@@ -1,8 +1,9 @@
-package dominio.tickets;
+package dominio.Ticket;
 
-import dominio.Encryption;
+import dominio.Security.Encryption;
 
 import javax.crypto.SecretKey;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,14 +12,18 @@ import java.util.ArrayList;
  *
  * @author Silver_VS
  */
-public class UTicket {
-    private ArrayList<Ticket> tickets;
+public class UTicket implements Serializable {
+    private final ArrayList<Ticket> tickets;
 
     /**
      * Method to initialize the arraylist for a new UTicket.
      */
     public UTicket() {
         tickets = new ArrayList<>();
+    }
+
+    public ArrayList<Ticket> getTickets(){
+        return tickets;
     }
 
     public Ticket searchTicket(String id) {
@@ -28,6 +33,10 @@ public class UTicket {
             }
         }
         return null;
+    }
+
+    public void addTicket(Ticket ticket) {
+        tickets.add(ticket);
     }
 
     /**
@@ -41,7 +50,7 @@ public class UTicket {
         request.setSecondId(serviceID);
         request.setAddressIP(userIP);
         request.setLifetime(requestedLifetime);
-        tickets.add(request);
+        addTicket(request);
     }
 
     public void generateResponse4User(String id, String timeStamp, String lifetime, String key) {
@@ -51,12 +60,12 @@ public class UTicket {
         response.setTimeStamp(timeStamp);
         response.setLifetime(lifetime);
         response.setKey(key);
-        tickets.add(response);
+        addTicket(response);
     }
 
     public void generateTicket(String nameOfTicket, String firstID, String secondID, String timeStamp, String addressIP,
                                String lifetime, String key) {
-        tickets.add(
+        addTicket(
                 new Ticket(nameOfTicket, firstID, secondID, timeStamp, addressIP, lifetime, key)
         );
     }
@@ -66,17 +75,16 @@ public class UTicket {
         request.setIdTicket("request4TGS");
         request.setFirstId(serviceID);
         request.setLifetime(requestedLifetime);
-        tickets.add(request);
+        addTicket(request);
     }
 
-    public void authenticator(String id, String timeStamp) {
+    public void addAuthenticator(String id, String timeStamp) {
         Ticket auth = new Ticket();
         auth.setIdTicket("auth");
         auth.setFirstId(id);
         auth.setTimeStamp(timeStamp);
-        tickets.add(auth);
+        addTicket(auth);
     }
-
 
 
     public boolean[] getFilled(Ticket ticket) {
@@ -94,6 +102,10 @@ public class UTicket {
         try {
             Encryption encryption = new Encryption();
             Ticket toEncrypt = searchTicket(id);
+
+            if (toEncrypt == null)
+                return false;
+
             boolean[] existingFields = getFilled(toEncrypt);
             if (existingFields[0]) {
                 toEncrypt.setFirstId(encryption.encrypt(key, toEncrypt.getFirstId()));
@@ -119,10 +131,14 @@ public class UTicket {
         }
     }
 
-    public boolean decryptTicket(SecretKey key, String id){
+    public boolean decryptTicket(SecretKey key, String id) {
         try {
             Encryption decryption = new Encryption();
             Ticket toDecrypt = searchTicket(id);
+
+            if (toDecrypt == null)
+                return false;
+
             boolean[] existingFields = getFilled(toDecrypt);
             if (existingFields[0]) {
                 toDecrypt.setFirstId(decryption.decrypt(key, toDecrypt.getFirstId()));
@@ -145,6 +161,38 @@ public class UTicket {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public void printTicket(UTicket uTicket) {
+        for (Ticket i: uTicket.getTickets()) {
+            printTicket(uTicket, i.getIdTicket());
+        }
+    }
+
+    public void printTicket(UTicket uTicket, String ticketId) {
+        Ticket ticket = uTicket.searchTicket(ticketId);
+        if (ticket != null) {
+            boolean[] filled = uTicket.getFilled(ticket);
+            System.out.println("idTicket: " + ticket.getIdTicket());
+            if (filled[0]) {
+                System.out.println("firstId: " + ticket.getFirstId());
+            }
+            if (filled[1]) {
+                System.out.println("secondId: " + ticket.getSecondId());
+            }
+            if (filled[2]) {
+                System.out.println("addressIP: " + ticket.getAddressIP());
+            }
+            if (filled[3]) {
+                System.out.println("lifetime: " + ticket.getLifetime());
+            }
+            if (filled[4]) {
+                System.out.println("timeStamp: " + ticket.getTimeStamp());
+            }
+            if (filled[5]) {
+                System.out.println("key: " + ticket.getKey());
+            }
         }
     }
 

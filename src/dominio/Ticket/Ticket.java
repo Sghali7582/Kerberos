@@ -1,6 +1,12 @@
-package dominio.tickets;
+package dominio.Ticket;
 
-public class Ticket {
+import java.io.Serializable;
+
+/**
+ * @author Silver-VS
+ */
+
+public class Ticket implements Serializable {
 
     private String idTicket;
     private String firstId;
