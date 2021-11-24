@@ -2,6 +2,10 @@ package dominio.Ticket;
 
 import java.io.Serializable;
 
+/**
+ * @author Silver-VS
+ */
+
 public class Ticket implements Serializable {
 
     private String idTicket;

@@ -10,6 +10,10 @@ import java.net.Socket;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+/**
+ * @author Silver-VS
+ */
+
 public class ProcessRequest {
 
     public boolean processUserRequest(Socket socket) {
@@ -43,7 +47,7 @@ public class ProcessRequest {
                     encryption.convertKey2String(sessionKey));
 
             return new Messenger().ticketResponse(socket, userResponse);
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }

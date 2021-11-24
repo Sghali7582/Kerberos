@@ -8,6 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * @author Silver-VS
+ */
+
 public class Encryption {
 
     public SecretKey keyGenerator() throws NoSuchAlgorithmException {

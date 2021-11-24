@@ -7,6 +7,10 @@ import dominio.Ticket.UTicket;
 
 import javax.crypto.SecretKey;
 
+/**
+ * @author Silver-VS
+ */
+
 public class RequestAccess {
 
     public static UTicket startAuth(String userID, String serviceID, String userIP, String requestedLifetime){

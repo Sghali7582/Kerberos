@@ -8,6 +8,10 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+/**
+ * @author Silver-VS
+ */
+
 public class KeyMethods {
 
 //    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {

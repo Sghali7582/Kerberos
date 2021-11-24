@@ -10,6 +10,10 @@ import java.net.Socket;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+/**
+ * @author Silver-VS
+ */
+
 public class ProcessRequest {
 
     public boolean processUserRequest(Socket socket) {

@@ -6,6 +6,10 @@ import java.net.ServerSocket;
 
 public class Controller {
 
+    /**
+     * @author Silver-VS
+     */
+
     public static void main(String[] args) {
         //Solo se necesita agregar método para iniciar ServerSocket, y esperar una conexión en un loop.
         Messenger messenger = new Messenger();

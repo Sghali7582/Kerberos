@@ -8,6 +8,10 @@ import java.net.Socket;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+/**
+ * @author Silver-VS
+ */
+
 public class ProcessRequest {
     public void processUserRequest(Socket socket){
         UTicket userRequest = new Messenger().acceptTicket(socket);

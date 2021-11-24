@@ -5,6 +5,10 @@ import authServer.ProcessRequest;
 
 import java.net.ServerSocket;
 
+/**
+ * @author Silver-VS
+ */
+
 public class Controller {
     public static void main(String[] args) {
         Messenger messenger = new Messenger();

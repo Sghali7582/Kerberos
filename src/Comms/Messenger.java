@@ -6,6 +6,10 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * @author Silver-VS
+ */
+
 public class Messenger {
 
     public UTicket sendTicket(String receiverHost, int connectionPort, UTicket ticket) {
