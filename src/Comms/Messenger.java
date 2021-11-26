@@ -12,26 +12,31 @@ import java.net.Socket;
 
 public class Messenger {
 
+    public static Socket initSocket(String receiverHost, int connectionPort) throws IOException {
+        //  We indicate the destination of the Ticket, establishing the IP where it will be received and the
+        //  "channel" or port where both all comms will be held.
+        //  The socket indicated in here must be already running in the receiverHost, or the connection
+        //  won't be established.
+        return new Socket(receiverHost, connectionPort);
+    }
+
+    public static ObjectOutputStream initSender(Socket socket) throws IOException {
+        //  We state that we are sending something through an outputStream.
+        OutputStream outputStream = socket.getOutputStream();
+        //  Now we clarify that we are sending an object through said stream.
+        return new ObjectOutputStream(outputStream);
+    }
+
     public UTicket sendTicket(String receiverHost, int connectionPort, UTicket ticket) {
         try {
-            //  We indicate the destination of the Ticket, establishing the IP where it will be received and the
-            //  "channel" or port where both all comms will be held.
-            //  The socket indicated in here must be already running in the receiverHost, or the connection
-            //  won't be established.
-            Socket socket = new Socket(receiverHost, connectionPort);
+            Socket socket = initSocket(receiverHost, connectionPort);
+            //  Now we need to send the object through the connection.
+            initSender(socket).writeObject(ticket);
 
-            //  We state that we are sending something through an outputStream.
-            OutputStream outputStream = socket.getOutputStream();
-            //  Now we clarify that we are sending an object through said stream.
-            ObjectOutputStream objectSender = new ObjectOutputStream(outputStream);
-
-            //  We show in the console what are we sending.
+            //  We show in the console what are we trying to send.
             System.out.print("\nTicket enviado:");
             ticket.printTicket(ticket);
             System.out.print("\ntermina ticket enviado");
-
-            //  Now we need to send the object through the connection.
-            objectSender.writeObject(ticket);
 
             //  So now we think it has been sent, but we need to be sure of it.
             //  We are going to be receiving information from the socket to confirm
@@ -91,42 +96,36 @@ public class Messenger {
         }
     }
 
-    public boolean ticketResponse(Socket socket,  UTicket ticketResponse) {
+    public boolean ticketResponse(Socket socket, UTicket ticketResponse) {
         try {
             //  We send the response ticket.
             OutputStream outputStream = socket.getOutputStream();
             ObjectOutputStream objectSender = new ObjectOutputStream(outputStream);
             objectSender.writeObject(ticketResponse);
+
+            //  We sout the ticket sent back
+            ticketResponse.printTicket(ticketResponse);
+            System.out.println("\n");
+
             //  We can proceed to close the receiving socket.
             socket.close();
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return true;
         }
     }
 
-    public boolean negateResponse(Socket socket) {
+    public boolean returnResponse(Socket socket, boolean response) {
         try {
             //  We send the response ticket.
             OutputStream outputStream = socket.getOutputStream();
             ObjectOutputStream objectSender = new ObjectOutputStream(outputStream);
-            objectSender.writeBoolean(false);
+            objectSender.writeBoolean(response);
             //  We can proceed to close the receiving socket.
             socket.close();
             return true;
-        } catch (Exception e){
-            return true;
-        }
-    }
-
-    public boolean finishServerSocket(ServerSocket serverSocket) {
-        try {
-            serverSocket.close();
-            return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
-
-
 }
