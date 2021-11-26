@@ -1,7 +1,6 @@
 package TGS;
 
 import Comms.Messenger;
-import authServer.ProcessRequest;
 
 import java.net.ServerSocket;
 
@@ -16,9 +15,9 @@ public class Controller {
         ServerSocket serverSocket = messenger.initServerSocket(5501);
         System.out.println("TGS iniciado y esperando peticiones...");
 
-        do{
-            if(new TGS.ProcessRequest().processUserRequest(messenger.acceptRequest(serverSocket))){
-                System.out.println("Respuesta enviada del AS al cliente.");
+        do {
+            if (new TGS.ProcessRequest().processUserRequest(messenger.acceptRequest(serverSocket))) {
+                System.out.println("Respuesta enviada del TGS al cliente.");
             } else {
                 System.out.println("Ha ocurrido un error en la respuesta.");
             }
